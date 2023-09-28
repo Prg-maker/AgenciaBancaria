@@ -48,5 +48,34 @@ public class Conta {
 				"\nEmail:" + this.pessoa.getEmail() +
 				"\nSaldo:" + Utils.doubleToString(this.getSaldo()) + "]";
 	}
+	
+	public void depositar(Double valor) {
+		if(valor > 0) {
+			setSaldo(getSaldo()+valor);
+			System.out.println("Seu deposito foi realizado com sucesso!");
+		}else {
+			System.out.println("Não foi possível realizar o depósito");
+		}
+	}
+	
+	public void sacar(Double valor) {
+		if(valor> 0 && this.getSaldo() >= valor) {
+			setSaldo(getSaldo() - valor);
+			System.out.println("Saque realizado com sucesso!");
+		}else {
+			System.out.println("Não foi possível realizar o saque!");
+		}
+	}
+	
+	public void transferir(Conta contaParaDeposito, Double valor) {
+		if(valor > 0 && this.getSaldo() >= valor) {
+			setSaldo(getSaldo() - valor);
+			
+			contaParaDeposito.saldo = contaParaDeposito.getSaldo() + valor;
+			System.out.println("Transferência foi realizada com sucesso!");
+		}else {
+			System.out.println("Não foi possível realizar a transferência!");
+		}
+	}
 
 }
