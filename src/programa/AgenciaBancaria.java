@@ -3,6 +3,8 @@ package programa;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import util.LimparConsole;
+
 public class AgenciaBancaria {
 	static Scanner input = new Scanner(System.in);
 	static ArrayList<Conta> contasBancarias;
@@ -46,7 +48,7 @@ public class AgenciaBancaria {
 			break;
 		}
 		case 5: {
-			listar();
+			listarContas();
 			break;
 		}
 		case 6: {
@@ -55,12 +57,13 @@ public class AgenciaBancaria {
 		}
 		default:
 			throw new IllegalArgumentException("Unexpected value: " + operacao);
-			operacoes();
-			break;
+		
+			
 		}
 	}
 	
 	public static void criarConta() {
+		
 		System.out.println("\nNome: ");
 		String nome = input.next();
 		
@@ -78,7 +81,8 @@ public class AgenciaBancaria {
 		contasBancarias.add(conta);
 		
 		System.out.println("Sua Conta foi criada com sucesso!");
-		
+
+		operacoes();
 	}
 	
 	private static Conta encontrarConta(int numeroConta) {
@@ -107,6 +111,58 @@ public class AgenciaBancaria {
 			conta.depositar(valordepositar);
 		}else {
 			System.out.println("A conta não foi encontrada");
+		}
+		
+		operacoes();
+	}
+	
+	public static void sacar() {
+		System.out.println("Número da conta: ");
+		int numeroConta = input.nextInt();
+		
+		Conta conta = encontrarConta(numeroConta);
+		
+		if(conta!= null) {
+			System.out.println("Qual o valor deseja sacar: ");
+			Double valorsacar = input.nextDouble();
+			conta.sacar(valorsacar);
+		}else {
+			System.out.println("A conta não foi encontrada");
+		}
+		
+		operacoes();
+	}
+	
+	public static void transferir() {
+		System.out.println("Número da conta do remetente: ");
+		int numeroContaRemetente = input.nextInt();
+		
+		Conta contaRemetente = encontrarConta(numeroContaRemetente);
+		
+		if(contaRemetente != null) {
+			System.out.println("Número da conta do destinatário: ");
+			int numeroContaDestinatario = input.nextInt();
+			
+			Conta contaDestinatario = encontrarConta(numeroContaDestinatario);
+			
+			if(contaDestinatario != null) {
+				System.out.println("Valor da transferência: ");
+				Double valorTransferencia = input.nextDouble();
+				
+				contaRemetente.transferir(contaDestinatario, valorTransferencia);
+				
+			}
+		}
+		operacoes();
+	}
+	
+	public static void listarContas() {
+		if(contasBancarias.size() > 0) {
+			for(Conta  conta: contasBancarias) {
+				System.out.println(conta);
+			}
+		}else {
+			System.out.println("Não tem contas cadastradas");
 		}
 		
 		operacoes();

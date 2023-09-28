@@ -26,8 +26,8 @@ public class Pessoa {
 	public String getCPF() {
 		return cpf;
 	}
-	public void setCPF(String cPF) {
-		this.cpf = cPF;
+	public void setCPF(String cpf) {
+		this.cpf = cpf;
 	}
 	public String getEmail() {
 		return email;
